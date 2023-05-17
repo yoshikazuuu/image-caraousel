@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Display</title>
+    <style>
+        #image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-gap: 10px;
+        }
+        #image-container img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container">
+        <!-- Images will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+        fetch('/images')
+            .then(response => response.json())
+            .then(images => {
+                const imageContainer = document.getElementById('image-container');
+                images.forEach(image => {
+                    const img = document.createElement('img');
+                    img.src = `/images/${image}`;
+                    img.alt = '';
+                    imageContainer.appendChild(img);
+                });
+            });
+    </script>
+</body>
+</html>
